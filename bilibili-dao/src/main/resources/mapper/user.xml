@@ -1,0 +1,94 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwq.bilibili.dao.UserDao">
+    <!-- getUserByPhone --> 
+    <select id="getUserByPhone" parameterType="java.lang.String" resultType="com.lwq.bilibili.domain.User" >
+        select * 
+        from t_user
+        where phone = #{phone}
+    </select>
+
+    <!-- addUser --> 
+    <update id="addUser" parameterType="com.lwq.bilibili.domain.User" useGeneratedKeys="true" keyProperty="id">
+    insert into t_user(
+        phone,
+        email,
+        password,
+        salt,
+        createTime
+    )values(
+        #{phone},
+        #{email},
+        #{password},
+        #{salt},
+        #{createTime}
+    )
+    </update>    
+
+    <!-- addUserInfo --> 
+
+    <insert id="addUserInfo" parameterType="com.lwq.bilibili.domain.UserInfo">
+    insert into t_user_info(
+        userId,
+        nick,
+        avatar,
+        sign,
+        gender,
+        birth,
+        createTime
+    )values(
+        #{userId},
+        #{nick},
+        #{avatar},
+        #{sign},
+        #{gender},
+        #{birth},
+        #{createTime}
+    )        
+    </insert>
+
+    <!-- getUserById --> 
+
+    <select id="getUserById" parameterType="java.lang.Long" resultType="com.lwq.bilibili.domain.User">
+        select
+            *
+        from
+            t_user
+        where
+            id = #{id}
+    </select>
+
+    <!-- getUserInfoByUserId --> 
+  
+    <select id="getUserInfoByUserId" parameterType="java.lang.Long" resultType="com.lwq.bilibili.domain.UserInfo">
+        select
+            *
+        from
+            t_user_info
+        where
+            userId = #{userId}
+   
+    </select>
+
+    <!-- updateUsers --> 
+
+    <update id="updateUsers" parameterType="com.lwq.bilibili.domain.User">
+        update
+            t_user
+        set 
+            <if test="phone !=null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="email !=null and email != ''">
+                email = #{email},
+            </if>
+            <if test="password !=null and password != ''">
+                password = #{password},
+            </if>
+            updateTime = #{updateTime}
+        where 
+            id = #{id}
+        
+    </update>
+</mapper>

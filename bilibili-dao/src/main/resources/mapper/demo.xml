@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lwq.bilibili.dao.DemoDao">
-    <select id="query" parameterType="java.lang.String" resultType="java.lang.String">
-         select name
-          from t_demo
-         where name = #{name} 
-    </select>
-</mapper>
