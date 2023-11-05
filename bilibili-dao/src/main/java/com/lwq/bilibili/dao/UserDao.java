@@ -20,4 +20,6 @@ public interface UserDao {
 
     Integer updateUsers(User user);
 
+    Integer updateUserInfos(UserInfo userInfo);
+
 }

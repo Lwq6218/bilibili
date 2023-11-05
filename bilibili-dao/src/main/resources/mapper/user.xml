@@ -91,4 +91,30 @@
             id = #{id}
         
     </update>
+
+    <!-- updateUserInfos --> 
+
+    <update id="updateUserInfos" parameterType="com.lwq.bilibili.domain.UserInfo">
+        update
+            t_user_info
+        set
+            <if test="nick !=null and nick != ''">
+                nick = #{nick},
+            </if>
+            <if test="avatar !=null">
+                avatar = #{avatar},
+            </if>
+            <if test="sign !=null and">
+                sign = #{sign},
+            </if>
+            <if test="gender !=null and gender != ''">
+                gender = #{gender},
+            </if>
+            <if test="birth !=null and birth !=''">
+                birth = #{birth},
+            </if>
+            updateTime = #{updateTime}
+        where
+            userId = #{userId}
+    </update>
 </mapper>

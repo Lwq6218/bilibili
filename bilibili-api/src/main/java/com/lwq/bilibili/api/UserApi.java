@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lwq.bilibili.api.support.UserSupport;
 import com.lwq.bilibili.domain.JsonResponse;
 import com.lwq.bilibili.domain.User;
+import com.lwq.bilibili.domain.UserInfo;
 import com.lwq.bilibili.service.UserService;
 import com.lwq.bilibili.service.util.RSAUtil;
 
@@ -50,6 +51,13 @@ public class UserApi {
         Long userId = userSupport.getCurrentUserId();
         user.setId(userId);
         userService.updateUsers(user);
+        return JsonResponse.success();
+    }
+    @PutMapping("/user-infos")
+    public JsonResponse<String> updateUserInfos(@RequestBody UserInfo userInfo) {
+        Long userId = userSupport.getCurrentUserId();
+        userInfo.setUserId(userId);
+        userService.updateUserInfos(userInfo);
         return JsonResponse.success();
     }
 }

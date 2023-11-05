@@ -77,35 +77,41 @@ public class UserService {
 
     public User getUserInfo(Long userId) {
         User user = userDao.getUserById(userId);
-        UserInfo userInfo = userDao.getUserInfoByUserId(userId);;
+        UserInfo userInfo = userDao.getUserInfoByUserId(userId);
+        ;
         user.setUserInfo(userInfo);
         return user;
     }
 
     public void updateUsers(User user) {
-    Long id = user.getId();
-    User userDB = userDao.getUserById(id);
-    if (userDB == null) {
-        throw new ConditionException("用户不存在");
-    }
-    if(!StringUtils.isNullOrEmpty(user.getPassword())){
-        String password = user.getPassword();
-        String rawPassword = null;
-        try {
-            rawPassword = RSAUtil.decrypt(password);
-        } catch (Exception e) {
-            throw new ConditionException("密码解析失败");
+        Long id = user.getId();
+        User userDB = userDao.getUserById(id);
+        if (userDB == null) {
+            throw new ConditionException("用户不存在");
         }
-        String salt = user.getSalt();
-        String md5Password = MD5Util.sign(rawPassword, salt, "UTF-8");
-        user.setPassword(md5Password);
-        userDao.updateUsers(user);
+        if (!StringUtils.isNullOrEmpty(user.getPassword())) {
+            String password = user.getPassword();
+            String rawPassword = null;
+            try {
+                rawPassword = RSAUtil.decrypt(password);
+            } catch (Exception e) {
+                throw new ConditionException("密码解析失败");
+            }
+            String salt = user.getSalt();
+            String md5Password = MD5Util.sign(rawPassword, salt, "UTF-8");
+            user.setPassword(md5Password);
+            userDao.updateUsers(user);
+        }
+
     }
 
-}
+    public void updateUserInfos(UserInfo userInfo) {
+        userInfo.setUpdateTime(new Date());
+        userDao.updateUserInfos(userInfo);
+    }
+
     private User getUserByPhone(String phone) {
         return userDao.getUserByPhone(phone);
     }
-
 
 }
