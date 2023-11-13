@@ -1,6 +1,8 @@
 package com.lwq.bilibili.service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,6 +110,14 @@ public class UserService {
     public void updateUserInfos(UserInfo userInfo) {
         userInfo.setUpdateTime(new Date());
         userDao.updateUserInfos(userInfo);
+    }
+
+    public User getUserById(Long id) {
+        return userDao.getUserById(id);
+    }
+
+    public List<UserInfo> getUserInfoByUserIds(Set<Long> userIdList) {
+       return userDao.getUserInfoByUserIds(userIdList);
     }
 
     private User getUserByPhone(String phone) {

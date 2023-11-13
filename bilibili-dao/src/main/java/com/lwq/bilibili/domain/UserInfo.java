@@ -10,6 +10,15 @@ public class UserInfo {
     private String sign;
     private String gender;
     private String birth;
+    private boolean followed;
+    public boolean getFollowed() {
+        return followed;
+    }
+
+    public void setFollowed(boolean followed) {
+        this.followed = followed;
+    }
+
     private Date createTime;
     private Date updateTime;
 

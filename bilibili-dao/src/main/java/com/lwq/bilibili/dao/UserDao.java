@@ -1,5 +1,8 @@
 package com.lwq.bilibili.dao;
 
+import java.util.List;
+import java.util.Set;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.lwq.bilibili.domain.User;
@@ -21,5 +24,7 @@ public interface UserDao {
     Integer updateUsers(User user);
 
     Integer updateUserInfos(UserInfo userInfo);
+
+    List<UserInfo> getUserInfoByUserIds(Set<Long> userIdList);
 
 }
