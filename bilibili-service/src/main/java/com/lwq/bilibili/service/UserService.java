@@ -1,5 +1,6 @@
 package com.lwq.bilibili.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -7,7 +8,9 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lwq.bilibili.dao.UserDao;
+import com.lwq.bilibili.domain.PageResult;
 import com.lwq.bilibili.domain.User;
 import com.lwq.bilibili.domain.UserInfo;
 import com.lwq.bilibili.domain.constant.UserConstant;
@@ -117,11 +120,24 @@ public class UserService {
     }
 
     public List<UserInfo> getUserInfoByUserIds(Set<Long> userIdList) {
-       return userDao.getUserInfoByUserIds(userIdList);
+        return userDao.getUserInfoByUserIds(userIdList);
     }
 
     private User getUserByPhone(String phone) {
         return userDao.getUserByPhone(phone);
+    }
+
+    public PageResult<UserInfo> getUserInfos(JSONObject params) {
+        Integer no = params.getInteger("no");
+        Integer size = params.getInteger("size");
+        params.put("star", (no - 1) * size);
+        params.put("limit", size);
+        Integer total = userDao.pageCountUserInfos(params);
+        List<UserInfo> list = new ArrayList<>();
+        if (total > 0) {
+            list = userDao.pageListUserInfos(params);
+        }
+        return new PageResult<>(total, list);
     }
 
 }

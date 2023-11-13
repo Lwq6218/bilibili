@@ -25,7 +25,9 @@ public class RSAUtil {
 
 	public static void main(String[] args) throws Exception{
 		String str = RSAUtil.encrypt("123456");
+		String s = RSAUtil.decrypt("VgoYi18ndf7Xg3X1/n7OGrUhWvhEWv+wFqjtb2IvvaBXCk7Gvfvs41L5WccmT7yI5Xyc2i6lK7XWEqTVcRqp/4YwW9fitcRjI00+Uj7j3GHjNxYqRLw+3UenfAG8FyUMv9n7g0B1iRYE+JSiWOEWpGclyFKFEO+bbpVAbxOTs+g=");
 		System.out.println(str);
+		System.out.println(s);
 	}
 
 	public static String getPublicKeyStr(){

@@ -1,6 +1,7 @@
 package com.lwq.bilibili.dao;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -26,5 +27,9 @@ public interface UserDao {
     Integer updateUserInfos(UserInfo userInfo);
 
     List<UserInfo> getUserInfoByUserIds(Set<Long> userIdList);
+
+    Integer pageCountUserInfos( Map<String,Object> params);
+
+    List<UserInfo> pageListUserInfos(Map<String,Object> params);
 
 }
